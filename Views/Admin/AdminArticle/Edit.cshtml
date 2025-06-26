@@ -1,0 +1,30 @@
+﻿@model MedicalStore.Models.Article
+
+<h2>Sửa bài viết</h2>
+
+<form method="post" enctype="multipart/form-data">
+    <p>
+        Tiêu đề:
+        <input type="text" name="Title" class="form-control" value="@Model?.Title" />
+    </p>
+
+    <p>
+        Nội dung:
+        <textarea name="Content" class="form-control">@Model?.Content</textarea>
+    </p>
+
+    <p>
+        Ảnh hiện tại:
+        @if (!string.IsNullOrEmpty(Model?.ImageUrl))
+        {
+            <img src="@Model.ImageUrl" width="200" />
+        }
+    </p>
+
+    <p>
+        Đổi ảnh:
+        <input type="file" name="ImageFile" class="form-control" />
+    </p>
+
+    <button type="submit" class="btn btn-primary">Lưu</button>
+</form>

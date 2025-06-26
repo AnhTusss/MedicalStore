@@ -1,0 +1,42 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model (List<IdentityUser> Users, List<IdentityRole> Roles)
+
+@{
+    ViewData["Title"] = "Phân quyền người dùng";
+    var userRoles = ViewBag.UserRoles as Dictionary<string, List<string>>;
+}
+
+<h2 class="text-primary mb-3">Phân quyền người dùng</h2>
+
+<table class="table table-bordered">
+    <thead class="table-light">
+        <tr>
+            <th>Tài khoản</th>
+            <th>Gán vai trò</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model.Users)
+        {
+            <tr>
+                <td>@user.UserName</td>
+                <td>
+                    <form method="post" asp-action="UpdateRole" asp-controller="AdminUser" class="d-flex gap-2">
+                        <input type="hidden" name="userId" value="@user.Id" />
+                        <select name="role" class="form-select form-select-sm w-auto">
+                            @foreach (var role in Model.Roles)
+                            {
+                                var isSelected = userRoles != null && userRoles.ContainsKey(user.Id) && userRoles[user.Id].Contains(role.Name);
+
+                                <option value="@role.Name" selected="@(isSelected ? "selected" : null)">
+                                    @role.Name
+                                </option>
+                            }
+                        </select>
+                        <button type="submit" class="btn btn-sm btn-primary">Cập nhật</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

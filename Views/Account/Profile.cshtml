@@ -1,0 +1,36 @@
+﻿@model MedicalStore.Models.UpdateProfileModel
+@{
+    ViewData["Title"] = "Cập nhật thông tin";
+}
+<a href="/Product" class="btn btn-secondary mb-3">
+    ← Quay lại
+</a>
+
+<h2 class="text-primary mb-4">Cập nhật thông tin cá nhân</h2>
+
+@if (ViewBag.Message != null)
+{
+    <div class="alert alert-success">@ViewBag.Message</div>
+}
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">@ViewBag.Error</div>
+}
+
+<form asp-action="Profile" method="post" class="w-50">
+    <div class="mb-3">
+        <label class="form-label">Tên tài khoản</label>
+        <input asp-for="Username" class="form-control" readonly />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Email</label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Số điện thoại</label>
+        <input asp-for="PhoneNumber" class="form-control" />
+        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-success">Lưu thay đổi</button>
+</form>

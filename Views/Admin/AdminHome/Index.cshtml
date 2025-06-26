@@ -1,0 +1,53 @@
+﻿@{
+    ViewData["Title"] = "Trang quản lý";
+}
+@if (User?.Identity?.IsAuthenticated == true && User.IsInRole("Admin"))
+{
+    <div class="text-center mt-4 mb-4">
+        <h4 class="fw-bold text-primary">Chào mừng đến với trang quản trị MedicalStore</h4>
+    </div>
+}
+
+<div class="row justify-content-center g-4 mt-4">
+    <!-- Quản lý sản phẩm -->
+    <div class="col-md-3">
+        <div class="shadow p-4 rounded bg-white text-center">
+            <h5>Quản lý sản phẩm</h5>
+            <a class="btn btn-primary mt-3" href="/AdminProduct">Vào quản lý</a>
+        </div>
+    </div>
+
+    <!-- Quản lý bài viết -->
+    <div class="col-md-3">
+        <div class="shadow p-4 rounded bg-white text-center">
+            <h5>Quản lý bài viết</h5>
+            <a class="btn btn-success mt-3" href="/AdminArticle">Vào quản lý</a>
+        </div>
+    </div>
+
+    <!-- Quản lý đánh giá -->
+    <div class="col-md-3">
+        <div class="shadow p-4 rounded bg-white text-center">
+            <h5>Quản lý đánh giá</h5>
+            <a class="btn btn-warning mt-3" href="/AdminRating">Vào quản lý</a>
+        </div>
+    </div>
+
+    <!-- Quản lý đơn hàng -->
+    <div class="col-md-3">
+        <div class="shadow p-4 rounded bg-white text-center">
+            <h5>Quản lý đơn hàng</h5>
+            <a class="btn btn-danger mt-3" href="/AdminOrder">Vào quản lý</a>
+        </div>
+    </div>
+</div>
+
+<!-- Nút Đăng xuất  -->
+<div class="d-flex justify-content-end mt-4">
+    <form asp-controller="Account" asp-action="Logout" method="post">
+        <button type="submit" class="btn btn-secondary px-4">Đăng xuất</button>
+    </form>
+</div>
+
+
+

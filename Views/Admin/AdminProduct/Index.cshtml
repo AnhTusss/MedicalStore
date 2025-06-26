@@ -1,0 +1,43 @@
+﻿<div class="d-flex justify-content-between align-items-center mb-3">
+    <a href="/AdminHome/Dashboard" class="btn btn-secondary mb-3">
+        ← Trở về trang quản trị
+    </a>
+
+    <h2 class="text-primary">Quản lý sản phẩm</h2>
+    <a href="/AdminProduct/Create" class="btn btn-success">
+        + Thêm sản phẩm
+    </a>
+</div>
+
+<table class="table table-bordered table-striped shadow-sm bg-white rounded">
+    <thead class="table-primary text-center align-middle">
+        <tr>
+            <th style="width: 25%">Tên</th>
+            <th style="width: 120px">Giá</th>
+            <th style="width: 150px">Thể loại</th>
+            <th style="width: 35%">Mô tả</th>
+            <th style="width: 150px">Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var p in Model)
+        {
+            <tr>
+                <td>@p.Name</td>
+                <td class="text-nowrap">@p.Price.ToString("N0") đ</td>
+                <td>@p.Category?.Name</td>
+                <td>
+                    @(p.Description?.Length > 80
+                        ? p.Description.Substring(0, 80) + "..."
+                        : p.Description)
+                </td>
+                <td class="text-center">
+                    <div class="d-flex justify-content-center gap-2">
+                        <a href="/AdminProduct/Edit/@p.Id" class="btn btn-sm btn-warning">Sửa</a>
+                        <a href="/AdminProduct/Delete/@p.Id" class="btn btn-sm btn-danger" onclick="return confirm('Bạn có chắc muốn xóa?')">Xóa</a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,65 @@
+﻿@model MedicalStore.Models.Order
+
+@{
+    ViewData["Title"] = "Chi tiết đơn hàng";
+     ViewData["HideNavbar"] = "true";
+}
+
+<div class="container mt-5" style="max-width: 800px;">
+    <h2 class="text-center text-primary mb-4">Chi tiết đơn hàng</h2>
+
+    <dl class="row">
+        <dt class="col-sm-4">Họ tên khách hàng:</dt>
+        <dd class="col-sm-8">@Model.CustomerName</dd>
+
+        <dt class="col-sm-4">Địa chỉ:</dt>
+        <dd class="col-sm-8">@Model.Address</dd>
+
+        <dt class="col-sm-4">Số điện thoại:</dt>
+        <dd class="col-sm-8">@Model.Phone</dd>
+
+        <dt class="col-sm-4">Ngày đặt:</dt>
+        <dd class="col-sm-8">@Model.OrderDate.ToString("dd/MM/yyyy HH:mm")</dd>
+
+        <dt class="col-sm-4">Phương thức thanh toán:</dt>
+        <dd class="col-sm-8">@Model.PaymentMethod</dd>
+
+        <dt class="col-sm-4">Trạng thái:</dt>
+        <dd class="col-sm-8">@Model.Status</dd>
+    </dl>
+
+    <h4 class="mt-4">Danh sách sản phẩm</h4>
+    <div class="table-responsive">
+        <table class="table table-bordered fs-5 w-100 text-center align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th style="min-width: 300px;">Tên sản phẩm</th>
+                    <th style="min-width: 120px;">Giá</th>
+                    <th style="min-width: 100px;">Số lượng</th>
+                    <th style="min-width: 160px;">Thành tiền</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.OrderItems)
+                {
+                    <tr>
+                        <td class="text-start">@item.Product.Name</td>
+                        <td>@item.Product.Price.ToString("N0") đ</td>
+                        <td style="white-space: nowrap;">@item.Quantity</td>
+                        <td>@((item.Quantity * item.Product.Price).ToString("N0")) đ</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="text-end fw-bold fs-5 mt-3">
+        Tổng cộng: @Model.OrderItems.Sum(i => i.Quantity * i.Product.Price).ToString("N0") đ
+    </div>
+
+
+
+    <div class="mt-4">
+        <a class="btn btn-secondary" href="/Order/UserHistory"> ← Quay lại</a>
+    </div>
+</div>

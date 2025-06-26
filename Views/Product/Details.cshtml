@@ -1,0 +1,45 @@
+﻿
+<a class="btn btn-light mb-3" href="/Product">← Trở về</a>
+
+<div class="mt-4">
+    <h4 class="mb-3">Gửi đánh giá của bạn</h4>
+
+    @if (TempData["RatingSuccess"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["RatingSuccess"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    @if (User.Identity != null && User.Identity.IsAuthenticated)
+    {
+        <form asp-action="AddRating" asp-controller="Product" method="post">
+            <input type="hidden" name="ProductId" value="@Model.Id" />
+
+            <div class="mb-3">
+                <label class="form-label">Số sao (1-5):</label>
+                <select name="Star" class="form-select" required>
+                    <option value="5">⭐ 5</option>
+                    <option value="4">⭐ 4</option>
+                    <option value="3">⭐ 3</option>
+                    <option value="2">⭐ 2</option>
+                    <option value="1">⭐ 1</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Bình luận:</label>
+                <textarea name="Comment" class="form-control" rows="3" required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Gửi đánh giá</button>
+        </form>
+    }
+    else
+    {
+        <div class="alert alert-warning">
+            Vui lòng <a href="/Account/Login" class="text-primary">đăng nhập</a> để gửi đánh giá sản phẩm.
+        </div>
+    }
+</div>

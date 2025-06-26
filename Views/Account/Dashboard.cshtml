@@ -1,0 +1,37 @@
+﻿@{
+    ViewData["Title"] = "Tài khoản của tôi";
+}
+
+<div class="container mt-5">
+    <h2 class="mb-4 text-primary">Xin chào, @User.Identity?.Name</h2>
+
+    <div class="row g-4">
+        <!-- Lịch sử đơn hàng -->
+        <div class="col-md-6">
+            <div class="p-4 shadow rounded bg-light h-100">
+                <h5 class="mb-3">Lịch sử đơn hàng</h5>
+                <p class="text-muted">Xem các đơn hàng bạn đã đặt tại MedicalStore.</p>
+                <a class="btn btn-primary" href="/Order/UserHistory">Xem đơn hàng</a>
+            </div>
+        </div>
+
+        <!-- Thông tin tài khoản -->
+        <div class="col-md-6">
+            <div class="p-4 shadow rounded bg-light h-100">
+                <h5 class="mb-3">Thông tin tài khoản</h5>
+                <p class="text-muted">Cập nhật thông tin cá nhân và đổi mật khẩu.</p>
+                <div class="d-flex gap-2 flex-wrap">
+                    <a class="btn btn-success" href="/Account/Profile">Cập nhật thông tin</a>
+                    <a class="btn btn-warning text-white" href="/Account/ChangePassword">Đổi mật khẩu</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Đăng xuất -->
+    <div class="text-end mt-5">
+        <form method="post" asp-controller="Account" asp-action="Logout">
+            <button type="submit" class="btn btn-outline-danger shadow">Đăng xuất</button>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,44 @@
+﻿@model MedicalStore.Models.CheckoutViewModel
+
+<div class="container mt-4">
+    <h2 class="mb-4">Thông tin thanh toán</h2>
+
+    <form asp-action="Checkout" method="post">
+        <div class="mb-3">
+            <label class="form-label">Họ tên khách hàng</label>
+            <input asp-for="Order.CustomerName" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Địa chỉ</label>
+            <input asp-for="Order.Address" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Số điện thoại</label>
+            <input asp-for="Order.Phone" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Phương thức thanh toán</label>
+            <select asp-for="Order.PaymentMethod" class="form-select" required>
+                <option value="COD">Thanh toán khi nhận hàng (COD)</option>
+                <option value="BankTransfer">Chuyển khoản ngân hàng</option>
+            </select>
+        </div>
+
+        <!-- Ẩn CartItems nhưng vẫn gửi về controller -->
+        @if (Model.CartItems != null && Model.CartItems.Any())
+        {
+            @for (int i = 0; i < Model.CartItems.Count; i++)
+            {
+                <input type="hidden" name="CartItems[@i].ProductId" value="@Model.CartItems[i].ProductId" />
+                <input type="hidden" name="CartItems[@i].ProductName" value="@Model.CartItems[i].ProductName" />
+                <input type="hidden" name="CartItems[@i].Price" value="@Model.CartItems[i].Price" />
+                <input type="hidden" name="CartItems[@i].Quantity" value="@Model.CartItems[i].Quantity" />
+            }
+        }
+
+        <button type="submit" class="btn btn-success">Xác nhận thanh toán</button>
+    </form>
+</div>

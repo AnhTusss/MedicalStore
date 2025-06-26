@@ -1,0 +1,38 @@
+﻿@{
+    ViewData["Title"] = "Thanh toán";
+    ViewData["HideNavbar"] = "true"; // Ẩn navbar
+}
+
+<div class="container" style="max-width: 600px; margin-top: 40px;">
+    <h2 class="text-center text-primary mb-4">Thông tin thanh toán</h2>
+
+    <form method="post" asp-action="Checkout">
+        <div class="mb-3">
+            <label class="form-label">Họ tên</label>
+            <input type="text" name="customerName" class="form-control" placeholder="Nhập họ tên người nhận" required />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Địa chỉ</label>
+            <input type="text" name="address" class="form-control" placeholder="Nhập địa chỉ giao hàng" required />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Số điện thoại</label>
+            <input type="tel" name="phone" class="form-control" placeholder="Nhập số điện thoại" required />
+        </div>
+
+        <div class="mb-4">
+            <label class="form-label">Phương thức thanh toán</label>
+            <select name="paymentMethod" class="form-select" required>
+                <option value="COD">Ship COD</option>
+                <option value="BankTransfer">Chuyển khoản</option> 
+            </select>
+        </div>
+
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-success px-5">Đặt hàng</button>
+        </div>
+    </form>
+</div>

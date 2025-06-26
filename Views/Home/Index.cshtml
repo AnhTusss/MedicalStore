@@ -1,0 +1,112 @@
+﻿@model List<MedicalStore.Models.Product>
+@{
+    ViewData["Title"] = "Trang chủ";
+    ViewData["HideNavbar"] = "false"; // Đảm bảo hiện thanh navbar
+    var categories = ViewBag.Categories as List<MedicalStore.Models.Category> ?? new List<MedicalStore.Models.Category>();
+    var selectedCategory = ViewBag.SelectedCategoryId as int?;
+}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+<style>
+    .hero-slider img {
+        max-height: 500px;
+        object-fit: cover;
+        width: 100%;
+    }
+
+    .hero-text {
+        position: absolute;
+        top: 20%;
+        left: 10%;
+        z-index: 2;
+        color: white;
+        background: rgba(0, 0, 0, 0.5);
+        padding: 40px 60px;
+        border-radius: 12px;
+        max-width: 700px;
+    }
+
+    .welcome-title {
+        font-size: 2.5rem;
+        font-weight: bold;
+        white-space: nowrap;
+    }
+
+    .category-box {
+        text-align: center;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        padding: 20px;
+        background-color: #ffffff;
+        transition: 0.3s;
+        height: 100%;
+    }
+
+        .category-box img {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+            margin-bottom: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .category-box:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+    .section-title {
+        margin: 40px 0 20px;
+        color: #007BFF;
+    }
+
+    .carousel-container {
+        position: relative;
+    }
+</style>
+
+<!-- SLIDER -->
+<div class="carousel-container">
+    <div id="mainCarousel" class="carousel slide hero-slider" data-bs-ride="carousel" data-bs-interval="5000">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="/images/hero-bg.jpg" class="d-block w-100" alt="slide 1" />
+            </div>
+            <div class="carousel-item">
+                <img src="/images/banner2.jpg" class="d-block w-100" alt="slide 2" />
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#mainCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#mainCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </button>
+    </div>
+
+    <div class="hero-text">
+        <h1 class="welcome-title">Chào mừng đến với MedicalStore</h1>
+        <p>Giải pháp chăm sóc sức khỏe tiện lợi và uy tín</p>
+        <a class="btn btn-light text-primary" href="/Product">Xem tất cả sản phẩm</a>
+    </div>
+</div>
+
+<!-- DANH MỤC -->
+<div class="container">
+    <h2 class="section-title">Danh mục sản phẩm</h2>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4">
+        @foreach (var cat in categories)
+        {
+            <div class="col">
+                <a href="/Category/Index?id=@cat.Id" class="text-decoration-none text-dark">
+                    <div class="category-box h-100">
+                        <img src="@(cat.ImageUrl ?? "/images/default.jpg")" alt="@cat.Name" />
+                        <h5 class="mt-3">@cat.Name</h5>
+                    </div>
+                </a>
+            </div>
+        }
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

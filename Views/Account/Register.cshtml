@@ -1,0 +1,32 @@
+﻿@{
+    ViewData["Title"] = "Đăng ký tài khoản";
+}
+
+<h2 class="mb-4 text-primary">Đăng ký người dùng</h2>
+
+<form method="post">
+    <div class="mb-3">
+        <label class="form-label">Tên tài khoản</label>
+        <input type="text" name="username" class="form-control" required />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Mật khẩu</label>
+        <input type="password" name="password" class="form-control" required />
+    </div>
+
+    <!-- ✅ Không hiển thị chọn vai trò, role được xử lý mặc định trong controller -->
+    <!--<input type="hidden" name="role" value="User" />-->
+
+    <button type="submit" class="btn btn-success">Đăng ký</button>
+
+    @if (TempData["RegisterSuccess"] != null)
+    {
+        <div class="alert alert-success mt-3">@TempData["RegisterSuccess"]</div>
+    }
+
+    @if (ViewBag.Error != null)
+    {
+        <div class="alert alert-danger mt-3">@ViewBag.Error</div>
+    }
+</form>

@@ -1,0 +1,31 @@
+﻿@model List<MedicalStore.Models.Category>
+
+<div class="container mt-4">
+    <h2 class="text-primary mb-4">Danh mục sản phẩm</h2>
+
+    @foreach (var category in Model)
+    {
+        <div class="mt-5">
+            <h4 class="text-info">@category.Name</h4>
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+                @foreach (var product in category.Products)
+                {
+                    <div class="col">
+                        <div class="card h-100 shadow-sm">
+                            <img src="@product.ImageUrl" class="card-img-top" style="height: 150px; object-fit: contain;" />
+                            <div class="card-body d-flex flex-column">
+                                <h6 class="text-primary">@product.Name</h6>
+                                <p class="card-text" style="font-size: 0.85rem">@product.Description</p>
+                                <p class="fw-bold text-danger mt-auto">Giá: @string.Format("{0:N0}", product.Price) VNĐ</p>
+                            </div>
+                            <div class="card-footer bg-transparent border-0 d-flex justify-content-between">
+                                <a href="/Product/Details/@product.Id" class="btn btn-outline-primary btn-sm">Xem</a>
+                                <a href="/Cart/Checkout?productId=@product.Id&quantity=1" class="btn btn-warning btn-sm">Mua ngay</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+</div>

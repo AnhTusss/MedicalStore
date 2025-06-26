@@ -1,0 +1,64 @@
+﻿@{
+    ViewData["Title"] = "Liên hệ";
+}
+
+<style>
+    .contact-card {
+        background-color: #f8f8ff;
+        border-radius: 10px;
+        padding: 30px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+    }
+
+        .contact-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+    .contact-header {
+        color: #007bff;
+        font-weight: 600;
+    }
+
+    .contact-info p {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+    .map-responsive {
+        overflow: hidden;
+        padding-bottom: 56.25%;
+        position: relative;
+        height: 0;
+    }
+
+        .map-responsive iframe {
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            border-radius: 10px;
+        }
+</style>
+
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="contact-card">
+                <h2 class="contact-header text-center mb-4">Liên hệ với MedicalStore</h2>
+
+                <div class="contact-info">
+
+                    <p><strong>Địa chỉ:</strong> 123 Đường ABC, Quận XYZ, TP.HCM</p>
+                    <p><strong>Số điện thoại:</strong> 023 456 789</p>
+                    <p><strong>Email:</strong> medicalstore@gmail.com</p>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>

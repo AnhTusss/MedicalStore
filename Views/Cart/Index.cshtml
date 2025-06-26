@@ -1,0 +1,95 @@
+﻿@model List<MedicalStore.Models.CartItemSession>
+
+<a href="/Product" class="btn btn-outline-secondary mb-3">← Trở về</a>
+
+<h2 class="text-primary">Giỏ hàng của bạn</h2>
+
+@if (!Model.Any())
+{
+    <p>Giỏ hàng trống.</p>
+}
+else
+{
+    <form method="post" asp-action="UpdateAll" asp-controller="Cart">
+        <table class="table table-bordered mt-3" id="cartTable">
+            <thead>
+                <tr>
+                    <th>Tên sản phẩm</th>
+                    <th>Giá</th>
+                    <th>Số lượng</th>
+                    <th>Tổng</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    <tr data-index="@i">
+                        <td>@Model[i].ProductName</td>
+                        <td class="price" data-price="@Model[i].Price">@Model[i].Price.ToString("N0") VNĐ</td>
+                        <td>
+                            <input type="hidden" name="cartItems[@i].ProductId" value="@Model[i].ProductId" />
+                            <input type="number" name="cartItems[@i].Quantity" value="@Model[i].Quantity"
+                                   min="1" class="form-control quantity" style="width:80px;" />
+                        </td>
+                        <td class="line-total">@((Model[i].Price * Model[i].Quantity).ToString("N0")) VNĐ</td>
+                        <td>
+                            <a href="@Url.Action("Remove", "Cart", new { id = Model[i].ProductId })"
+                               class="btn btn-danger btn-sm">Xoá</a>
+                        </td>
+                    </tr>
+                }
+
+                <tr class="table-warning fw-bold">
+                    <td colspan="3" class="text-end">Tổng cộng:</td>
+                    <td colspan="2" id="totalAmount">
+                        @Model.Sum(i => i.Price * i.Quantity).ToString("N0") VNĐ
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="d-flex justify-content-between mt-3">
+            <button type="submit" class="btn btn-secondary">Cập nhật giỏ hàng</button>
+
+            @if (!User.Identity.IsAuthenticated)
+            {
+                <a class="btn btn-warning" href="/Account/Login?returnUrl=/Order/Checkout">
+                    Đăng nhập để thanh toán
+                </a>
+            }
+            else
+            {
+                <a class="btn btn-success" href="/Order/Checkout">
+                    Tiến hành thanh toán
+                </a>
+            }
+        </div>
+    </form>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const quantityInputs = document.querySelectorAll(".quantity");
+            const formatter = new Intl.NumberFormat('vi-VN');
+
+            function updateTotals() {
+                let total = 0;
+                document.querySelectorAll("#cartTable tbody tr[data-index]").forEach(row => {
+                    const price = parseFloat(row.querySelector(".price").dataset.price);
+                    const qtyInput = row.querySelector(".quantity");
+                    const qty = parseInt(qtyInput.value) || 0;
+                    const lineTotal = price * qty;
+
+                    row.querySelector(".line-total").innerText = formatter.format(lineTotal) + " VNĐ";
+                    total += lineTotal;
+                });
+
+                document.getElementById("totalAmount").innerText = formatter.format(total) + " VNĐ";
+            }
+
+            quantityInputs.forEach(input => {
+                input.addEventListener("input", updateTotals);
+            });
+        });
+    </script>
+}

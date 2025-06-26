@@ -1,0 +1,47 @@
+﻿@model MedicalStore.Models.Product
+@{
+    var categories = ViewBag.Categories as List<MedicalStore.Models.Category>;
+    var isEdit = Model?.Id > 0;
+}
+
+<div class="container mt-4">
+    <h2 class="text-primary mb-4">@(isEdit ? "Sửa sản phẩm" : "Thêm sản phẩm")</h2>
+
+    <form method="post" class="card p-4 shadow-sm bg-white rounded">
+        <div class="mb-3">
+            <label for="Name" class="form-label">Tên sản phẩm</label>
+            <input type="text" class="form-control" id="Name" name="Name" value="@Model?.Name" required />
+        </div>
+
+        <div class="mb-3">
+            <label for="Price" class="form-label">Giá</label>
+            <input type="number" class="form-control" id="Price" name="Price" value="@Model?.Price" required />
+        </div>
+
+        <div class="mb-3">
+            <label for="Description" class="form-label">Mô tả</label>
+            <textarea class="form-control" id="Description" name="Description" rows="3" required>@Model?.Description</textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="ImageUrl" class="form-label">Ảnh URL</label>
+            <input type="text" class="form-control" id="ImageUrl" name="ImageUrl" value="@Model?.ImageUrl" />
+        </div>
+
+        <div class="mb-3">
+            <label for="CategoryId" class="form-label">Thể loại</label>
+            <select class="form-select" id="CategoryId" name="CategoryId" required>
+                <option value="">-- Chọn thể loại --</option>
+                @foreach (var c in categories)
+                {
+                    <option value="@c.Id" selected="@(Model?.CategoryId == c.Id ? "selected" : null)">
+                        @c.Name
+                    </option>
+                }
+            </select>
+
+        </div>
+
+        <button type="submit" class="btn btn-success">@(isEdit ? "Cập nhật" : "Thêm sản phẩm")</button>
+    </form>
+</div>

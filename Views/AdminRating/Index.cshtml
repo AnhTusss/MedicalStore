@@ -1,0 +1,33 @@
+﻿@model List<MedicalStore.Models.Rating>
+<a href="/AdminHome/Dashboard" class="btn btn-secondary mb-3">
+    ← Trở về trang quản trị
+</a>
+
+<h2 class="text-primary">Quản lý đánh giá & bình luận</h2>
+
+<table class="table table-bordered table-hover mt-3">
+    <thead class="table-light">
+        <tr>
+            <th>Sản phẩm</th>
+            <th>Số sao</th>
+            <th>Bình luận</th>
+            <th>Phân loại</th>
+            <th>Ngày tạo</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var r in Model)
+        {
+            var category = r.Star >= 4 ? "Tích cực" : r.Star <= 2 ? "Tiêu cực" : "Trung lập";
+            var colorClass = r.Star >= 4 ? "text-success" : r.Star <= 2 ? "text-danger" : "text-secondary";
+
+            <tr>
+                <td>@r.Product?.Name</td>
+                <td>@r.Star ⭐</td>
+                <td>@r.Comment</td>
+                <td class="@colorClass">@category</td>
+                <td>@r.CreatedAt.ToString("dd/MM/yyyy HH:mm")</td>
+            </tr>
+        }
+    </tbody>
+</table>

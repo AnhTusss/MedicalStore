@@ -1,0 +1,60 @@
+﻿@model List<MedicalStore.Models.Order>
+
+@{
+    ViewData["Title"] = "Lịch sử đơn hàng";
+}
+<a href="/Product" class="btn btn-secondary mb-3">
+    ← Quay lại
+</a>
+
+
+
+<h2 class="text-primary">Lịch sử đơn hàng</h2>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success text-center">@TempData["Success"]</div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger text-center">@TempData["Error"]</div>
+}
+
+@if (!Model.Any())
+{
+    <p>Bạn chưa đặt đơn hàng nào.</p>
+}
+else
+{
+    <table class="table table-bordered mt-3 text-center align-middle">
+        <thead class="table-light">
+            <tr>
+                <th style="min-width: 150px;">Ngày đặt</th>
+                <th style="min-width: 160px;">Tổng tiền</th>
+                <th style="min-width: 150px;">Trạng thái</th>
+                <th style="min-width: 180px;">Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in Model)
+            {
+                <tr>
+                    <td>@order.OrderDate.ToString("dd/MM/yyyy")</td>
+                    <td>@order.OrderItems.Sum(i => i.Quantity * i.Product.Price).ToString("N0") đ</td>
+                    <td>@order.Status</td>
+                    <td>
+                        @if (order.Status == "Chờ xác nhận" || order.Status == "Đang xử lý")
+                        {
+                            <form asp-action="Cancel" asp-controller="Order" method="post" onsubmit="return confirm('Bạn có chắc muốn huỷ đơn này?');" style="display:inline;">
+                                <input type="hidden" name="id" value="@order.Id" />
+                                <button type="submit" class="btn btn-danger btn-sm me-1">Huỷ</button>
+                            </form>
+                        }
+                        <a class="btn btn-info btn-sm" href="/Order/Details/@order.Id">Xem</a>
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

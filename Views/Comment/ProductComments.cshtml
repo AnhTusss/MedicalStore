@@ -1,0 +1,21 @@
+﻿@model List<MedicalStore.Models.Comment>
+@{
+    var positive = ViewBag.Positive as List<MedicalStore.Models.Comment>;
+    var negative = ViewBag.Negative as List<MedicalStore.Models.Comment>;
+}
+
+<h3>⭐ Bình luận tích cực (4-5 sao)</h3>
+@foreach (var c in positive)
+{
+    <div>
+        <strong>@c.Rating ⭐</strong> - @c.Content
+    </div>
+}
+
+<h3>⚠️ Bình luận tiêu cực (1-2 sao)</h3>
+@foreach (var c in negative)
+{
+    <div>
+        <strong>@c.Rating ⭐</strong> - @c.Content
+    </div>
+}
